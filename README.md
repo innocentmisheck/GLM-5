@@ -1,21 +1,12 @@
----
-language:
-  - en
-  - zh
-library_name: transformers
-license: mit
-pipeline_tag: text-generation
----
-
 # GLM-5
 
 <div align="center">
-<img src=https://raw.githubusercontent.com/zai-org/GLM-4.5/refs/heads/main/resources/logo.svg width="15%"/>
+<img src=resources/logo.svg width="15%"/>
 </div>
 <p align="center">
     👋 Join our <a href="https://discord.gg/QR7SARHRxK" target="_blank">Discord</a> community.
     <br>
-    📖 Check out the GLM-5 <a href="https://z.ai/blog/glm-4.7" target="_blank">technical blog</a>.
+    📖 Check out the GLM-5 <a href="https://z.ai/blog/glm-5" target="_blank">technical blog</a>.
     <br>
     📍 Use GLM-5 API services on <a href="https://docs.z.ai/guides/llm/glm-5">Z.ai API Platform. </a>
     <br>
@@ -24,19 +15,27 @@ pipeline_tag: text-generation
 
 ## Introduction
 
+![bench.png](resources/bench.png)
 
-在这里放性能表格和介绍
+![realworld_bench.png](resources/realworld_bench.png)
+
+![vending_bench.png](resources/vending_bench.png)
+
+## Download Model
+
+| Model     | Download Links                                                                                                                  | Model Size | Precision |
+|-----------|---------------------------------------------------------------------------------------------------------------------------------|------------|-----------|
+| GLM-5     | [🤗 Hugging Face](https://huggingface.co/zai-org/GLM-5)<br> [🤖 ModelScope](https://modelscope.cn/models/ZhipuAI/GLM-5)         | 744B-A40B  | BF16      |
+| GLM-5-FP8 | [🤗 Hugging Face](https://huggingface.co/zai-org/GLM-5-FP8)<br> [🤖 ModelScope](https://modelscope.cn/models/ZhipuAI/GLM-5-FP8) | 744B-A40B  | FP8       |
 
 ## Serve GLM-5 Locally
 
-For local deployment, GLM-5 supports inference frameworks including vLLM and SGLang. Comprehensive deployment instructions are available in the official [Github](https://github.com/zai-org/GLM-5) repository.
-
+For local deployment, GLM-5 supports inference frameworks including vLLM and SGLang. Comprehensive deployment
+instructions are available in the official [Github](https://github.com/zai-org/GLM-5) repository.
 
 vLLM and SGLang only support GLM-5 on their main branches. you can use their official docker images for inference.
 
-
-
-### Pepare enviroment
+### Prepare environment
 
 + vLLM
 
@@ -46,33 +45,43 @@ Using Docker as:
 docker pull vllm/vllm-openai:nightly 
 ```
 
-or using pip (must use pypi.org as the index url):
+or using pip:
 
 ```shell
 pip install -U vllm --pre --index-url https://pypi.org/simple --extra-index-url https://wheels.vllm.ai/nightly
 ```
 
+If you not using with dockr, you’ll need to upgrade transformers. Please follow the commands below:
 
-+ SGLang
-
-```bash
-docker pull lmsysorg/sglang:dev
-```
-or using pip:
-```
-pip install git+https://github.com/sgl-project/sglang.git#subdirectory=python
-```
-
-Whether you use vLLM or SGLang, you’ll need to upgrade transformers in your environment. Please follow the commands below:
 ```
 pip install git+https://github.com/huggingface/transformers.git
 ```
 
++ SGLang
+
+Using Docker as:
+
+```bash
+docker pull lmsysorg/sglang:glm5-hopper # For Hopper GPU
+docker pull lmsysorg/sglang:glm5-blackwell # For Blackwell GPU
+```
+
++ xLLM (Ascend NPU)
+
+Using Docker as:
+
+```bash
+# A2 x86
+docker pull quay.io/jd_xllm/xllm-ai:xllm-dev-hb-rc2-x86
+# A2 arm
+docker pull quay.io/jd_xllm/xllm-ai:xllm-dev-hb-rc2-arm
+# A3 arm
+docker pull quay.io/jd_xllm/xllm-ai:xllm-dev-hc-rc2-arm
+```
+
 ### Deploy
 
-
 + vLLM
-
 
 ```shell
 vllm serve zai-org/GLM-5-FP8 \
@@ -87,7 +96,6 @@ vllm serve zai-org/GLM-5-FP8 \
 ```
 
 + SGLang
-
 
 ```shell
 python3 -m sglang.launch_server \
@@ -105,18 +113,20 @@ python3 -m sglang.launch_server \
 
 ### Parameter Instructions
 
-- For agentic tasks of GLM-5, please turn on [Preserved Thinking mode](https://docs.z.ai/guides/capabilities/thinking-mode) by adding the following config (only sglang support):
-  
++ For agentic tasks of GLM-5, please turn
+  on [Preserved Thinking mode](https://docs.z.ai/guides/capabilities/thinking-mode) by adding the following config (only
+  sglang support):
+
   ```
     "chat_template_kwargs": {
         "enable_thinking": true,
         "clear_thinking": false
     }
     ```
-    
-- When using `vLLM` and `SGLang`, thinking mode is enabled by default when sending requests. If you want to disable the thinking switch, you need to add the `"chat_template_kwargs": {"enable_thinking": False}` parameter.
-- Both support tool calling. Please use OpenAI-style tool description format for calls.
 
++ When using `vLLM` and `SGLang`, thinking mode is enabled by default when sending requests. If you want to disable the
+  thinking switch, you need to add the `"chat_template_kwargs": {"enable_thinking": False}` parameter.
++ Both support tool calling. Please use OpenAI-style tool description format for calls.
 
 ## Citation
 

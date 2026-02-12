@@ -1,7 +1,7 @@
 # Using Ascend NPU to Deploy GLM-5  
   
 - SGLang: https://github.com/sgl-project/sglang/blob/main/docs/platforms/ascend_npu_glm5_examples.md  
-- vLLM-Ascend: https://github.com/vllm-project/vllm-ascend/blob/main/docs/source/tutorials/models/GLM5.md  
+- vLLM-Ascend: https://docs.vllm.ai/projects/ascend/en/latest/tutorials/models/GLM5.html
 - xLLM: https://github.com/jd-opensource/xllm/blob/preview/glm-5/docs/zh/getting_started/quick_start_GLM5.md  
   
 ## Environment Preparation  
@@ -32,7 +32,7 @@ docker run -itd --shm-size=16g --privileged=true --name ${NAME} \
 -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
 -v /usr/local/Ascend/firmware:/usr/local/Ascend/firmware \
 --device=/dev/davinci0:/dev/davinci0  \
---device=/dev/davinci1:/dev/avinci1  \
+--device=/dev/davinci1:/dev/davinci1  \
 --device=/dev/davinci2:/dev/davinci2  \
 --device=/dev/davinci3:/dev/davinci3  \
 --device=/dev/davinci4:/dev/davinci4  \
@@ -199,7 +199,7 @@ Not test yet.
   
 **A3 series**  
   
-- Quantized model ==glm5_w4a8== can be deployed on 1 Atlas 800 A3 (64G × 16) .  
+- Quantized model ==glm5_w4a8== can be deployed on 1 Atlas 800 A3 (128G × 8) .  
   
 Run the following script to execute online inference.  
   
@@ -248,7 +248,7 @@ python3 -m sglang.launch_server \
   
 ### Multi-node Deployment  
   
-- ==GLM-5-bf16==: require at least 2 Atlas 800 A3 (64G × 16).  
+- ==GLM-5-bf16==: require at least 2 Atlas 800 A3 (128G × 8).  
   
 **A3 series**  
   
@@ -335,7 +335,7 @@ Not test yet.
   
 **A3 series**  
   
-- Quantized model ==glm-5-w4a8== can be deployed on 1 Atlas 800 A3 (64G × 16) .  
+- Quantized model ==glm-5-w4a8== can be deployed on 1 Atlas 800 A3 (128G × 8) .  
   
 Run the following script to execute online inference.  
   
@@ -385,7 +385,7 @@ Not test yet.
   
 **A3 series**  
   
-- ==glm-5-bf16==: require at least 2 Atlas 800 A3 (64G × 16).  
+- ==glm-5-bf16==: require at least 2 Atlas 800 A3 (128G × 8).  
   
 Run the following scripts on two nodes respectively.  
   
@@ -497,7 +497,7 @@ Not test yet.
   
 **A3 series**  
   
-- Quantized model ==glm-5-w8a8== can be deployed on 1 Atlas 800 A3 (64G × 16) .  
+- Quantized model ==glm-5-w8a8== can be deployed on 1 Atlas 800 A3 (128G × 8) .  
   
 ### GLM-5 Weight Quantization  
   

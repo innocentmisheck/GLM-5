@@ -42,7 +42,7 @@ GLM-5 专为复杂系统工程与长周期 Agent 任务而生。在内部评测�
 
 vLLM、SGLang 和 xLLM 均支持 GLM-5 本地部署，以下提供简易部署指引。
 
-**vLLM**
++ vLLM
 
 使用 Docker：
 
@@ -62,7 +62,7 @@ pip install -U vllm --pre --index-url https://pypi.org/simple --extra-index-url 
 pip install git+https://github.com/huggingface/transformers.git
 ```
 
-**SGLang**
++ SGLang
 
 使用 Docker：
 
@@ -73,7 +73,7 @@ docker pull lmsysorg/sglang:glm5-blackwell   # 适用于 Blackwell GPU
 
 ### 部署
 
-**vLLM**
++ vLLM
 
 ```shell
 vllm serve zai-org/GLM-5-FP8 \
@@ -89,7 +89,7 @@ vllm serve zai-org/GLM-5-FP8 \
 
 更多细节请查看 [recipes](https://github.com/vllm-project/recipes/blob/main/GLM/GLM5.md)。
 
-**SGLang**
++ SGLang
 
 ```shell
 python3 -m sglang.launch_server \
@@ -107,7 +107,7 @@ python3 -m sglang.launch_server \
 
 更多细节请查看 [sglang cookbook](https://cookbook.sglang.io/autoregressive/GLM/GLM-5)。
 
-**xLLM 与昇腾 NPU**
++ xLLM 与昇腾 NPU
 
 请参考[部署指南](https://github.com/zai-org/GLM-5/blob/main/example/ascend.md)。
 
